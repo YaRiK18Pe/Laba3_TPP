@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Components</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Product Components</h1>
+        
+        <form action="/productcomponents/execute-query" method="post" class="form-container">
+            <label for="sqlQuery">Enter SQL Query:</label>
+            <input type="text" id="sqlQuery" name="sqlQuery" placeholder="Enter SQL Query" required>
+            <button type="submit">Execute Query</button>
+        </form>
+
+        <!-- Виведення результату запиту -->
+        <div th:if="${queryResult != null}">
+            <h2>Query Result:</h2>
+            <table>
+                <thead>
+                    <th th:each="column : ${queryResult.columns}" th:text="${column}"></th>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${queryResult.rows}">
+                        <td th:each="cell : ${row}" th:text="${cell}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/home" class="button back">Back to Home</a>
+    </div>
+</body>
+</html>
